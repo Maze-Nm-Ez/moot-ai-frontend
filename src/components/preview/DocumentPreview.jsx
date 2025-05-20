@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { X, Download, ChevronLeft, ChevronRight } from "lucide-react";
 
 export default function DocumentPreview({
-  document,
+  // Rename 'document' prop to 'documentData' to avoid conflict with global 'document' object
+  document: documentData,
   highlightedParts,
   onClose,
   isDarkMode,
@@ -12,36 +13,37 @@ export default function DocumentPreview({
 
   useEffect(() => {
     // Set total pages based on document content
-    if (document && document.content) {
+    if (documentData && documentData.content) {
       // This is a simplified example - actual page calculation would depend on your document structure
-      const estimatedPages = Math.ceil(document.content.length / 3000);
+      const estimatedPages = Math.ceil(documentData.content.length / 3000);
       setTotalPages(Math.max(1, estimatedPages));
     }
-  }, [document]);
+  }, [documentData]);
 
   const handleDownload = () => {
     // Create a blob from the document content
-    const blob = new Blob([document.content], { type: "text/plain" });
-    const url = URL.createObjectURL(blob);
+    const blob = new Blob([documentData.content], { type: "text/plain" });
+    const url = window.URL.createObjectURL(blob);
 
-    // Create a temporary link element
-    const a = document.createElement("a");
+    // Create a temporary link element using the global window.document
+    const a = window.document.createElement("a");
     a.href = url;
-    a.download = document.title || "document.txt";
-    document.body.appendChild(a);
+    a.download = documentData.title || "document.txt";
+    window.document.body.appendChild(a);
     a.click();
 
     // Clean up
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+    window.document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
   };
 
   // Content with highlighted sections
   const renderContent = () => {
-    if (!document || !document.content) return <p>No content available</p>;
+    if (!documentData || !documentData.content)
+      return <p>No content available</p>;
 
     if (!highlightedParts || highlightedParts.length === 0) {
-      return <div className="whitespace-pre-wrap">{document.content}</div>;
+      return <div className="whitespace-pre-wrap">{documentData.content}</div>;
     }
 
     // Sort highlights by their position in the text
@@ -58,7 +60,7 @@ export default function DocumentPreview({
       if (highlight.startOffset > lastIndex) {
         contentPieces.push(
           <span key={`pre-${index}`}>
-            {document.content.substring(lastIndex, highlight.startOffset)}
+            {documentData.content.substring(lastIndex, highlight.startOffset)}
           </span>
         );
       }
@@ -71,7 +73,7 @@ export default function DocumentPreview({
             isDarkMode ? "bg-yellow-600/40" : "bg-yellow-200"
           } rounded px-0.5`}
         >
-          {document.content.substring(
+          {documentData.content.substring(
             highlight.startOffset,
             highlight.endOffset
           )}
@@ -82,9 +84,9 @@ export default function DocumentPreview({
     });
 
     // Add remaining text after last highlight
-    if (lastIndex < document.content.length) {
+    if (lastIndex < documentData.content.length) {
       contentPieces.push(
-        <span key="remaining">{document.content.substring(lastIndex)}</span>
+        <span key="remaining">{documentData.content.substring(lastIndex)}</span>
       );
     }
 
@@ -123,14 +125,15 @@ export default function DocumentPreview({
                 isDarkMode ? "text-white" : "text-gray-800"
               }`}
             >
-              {document?.title || "Document Preview"}
+              {documentData?.title || "Document Preview"}
             </h2>
             <p
               className={`text-xs ${
                 isDarkMode ? "text-gray-400" : "text-gray-500"
               }`}
             >
-              {document?.category} • {document?.section || "Full Document"}
+              {documentData?.category} •{" "}
+              {documentData?.section || "Full Document"}
             </p>
           </div>
 
