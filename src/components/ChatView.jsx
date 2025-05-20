@@ -2,7 +2,12 @@ import { useState, useEffect, useRef } from "react";
 import MessageList from "./chat/MessageList";
 import ChatInput from "./chat/ChatInput";
 
-export default function ChatView({ messages, setMessages, isDarkMode }) {
+export default function ChatView({
+  messages,
+  setMessages,
+  isDarkMode,
+  fetchDocumentDetails,
+}) {
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
@@ -74,6 +79,7 @@ export default function ChatView({ messages, setMessages, isDarkMode }) {
         isLoading={isLoading}
         messagesEndRef={messagesEndRef}
         isDarkMode={isDarkMode}
+        fetchDocumentDetails={fetchDocumentDetails}
       />
 
       <ChatInput

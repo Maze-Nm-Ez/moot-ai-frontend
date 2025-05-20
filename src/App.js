@@ -147,6 +147,43 @@ export default function App() {
     setIsDarkMode(!isDarkMode);
   };
 
+  // Add this function after the other state variables in App.js
+
+  // Mock function to fetch document details - in real implementation, call your backend
+  const fetchDocumentDetails = async (documentId, sourceId) => {
+    // In a real implementation, this would be an API call to your backend
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve({
+          id: documentId || "doc123",
+          title: "Legal Agreement",
+          category: "Contract",
+          section: "Section 4.2 - Data Sharing",
+          content: `This is a sample document content with highlighted sections.
+        
+                    Section 4.2 - Data Sharing
+                            
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse quis justo eget felis commodo sagittis. Duis nec feugiat magna. Fusce neque nisi, eleifend id tortor ac, luctus ultrices ligula.
+
+                    The following terms govern data sharing with third parties:
+
+                    1. All third parties must sign a comparable confidentiality agreement with terms at least as restrictive as the present agreement.
+                    2. Written approval must be obtained from all parties prior to sharing any information covered under this agreement.
+                    3. A detailed record of all shared data must be maintained for a period of not less than five (5) years following the date of disclosure.
+                    4. When personal information is involved, a Data Processing Addendum is required that complies with all applicable data protection regulations.
+
+                    Violation of these terms constitutes a material breach of this agreement and grounds for immediate termination, as well as legal remedies including but not limited to injunctive relief.`,
+          highlightedParts: [
+            { startOffset: 191, endOffset: 391 },
+            { startOffset: 456, endOffset: 520 },
+          ],
+        });
+      }, 500);
+    });
+  };
+
+  // Pass this function down to ChatView as a prop
+
   return (
     <div
       className={`flex h-screen ${
@@ -186,6 +223,7 @@ export default function App() {
               setMessages={setMessages}
               isDarkMode={isDarkMode}
               currentChatId={currentChatId}
+              fetchDocumentDetails={fetchDocumentDetails}
             />
           )}
 

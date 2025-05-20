@@ -1,4 +1,7 @@
 import { Bot, User, AlertCircle, FileText, ExternalLink } from "lucide-react";
+import PreviewButton from "../preview/PreviewButton"; // Add this import
+import { useState } from "react"; // Add this import
+import DocumentPreview from "../preview/DocumentPreview"; // Add this import
 
 export default function MessageList({
   messages,
@@ -6,6 +9,49 @@ export default function MessageList({
   messagesEndRef,
   isDarkMode,
 }) {
+  // Add these new state variables
+  const [showPreview, setShowPreview] = useState(false);
+  const [previewDocument, setPreviewDocument] = useState(null);
+  const [highlightedParts, setHighlightedParts] = useState([]);
+
+  // Function to handle document preview
+  const handlePreviewDocument = (source) => {
+    // In a real implementation, you would fetch the full document content
+    // and highlighted parts from your backend
+    const mockDocument = {
+      id: source.id || Math.random().toString(),
+      title: source.title,
+      category: "Legal Document",
+      section: source.section,
+      content: `This is the full content of ${source.title}, section ${source.section}.
+      
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi. Sed volutpat eros id justo faucibus, in commodo nibh facilisis. Suspendisse potenti. Nullam ac facilisis est, nec facilisis magna. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris vitae urna nec magna commodo facilisis.
+
+The following section is particularly relevant:
+
+Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+
+Additional sections might also be of interest:
+
+Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.`,
+    };
+
+    // Mock highlighted parts
+    const mockHighlightedParts = [
+      { startOffset: 180, endOffset: 300 },
+      { startOffset: 450, endOffset: 550 },
+    ];
+
+    setPreviewDocument(mockDocument);
+    setHighlightedParts(mockHighlightedParts);
+    setShowPreview(true);
+  };
+
+  // Function to close document preview
+  const closePreview = () => {
+    setShowPreview(false);
+  };
+
   // Function to format message timestamp
   const getFormattedTime = () => {
     const now = new Date();
@@ -14,6 +60,16 @@ export default function MessageList({
 
   return (
     <div className="flex-grow overflow-y-auto px-1 py-0 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-transparent">
+      {/* Document Preview Modal */}
+      {showPreview && previewDocument && (
+        <DocumentPreview
+          document={previewDocument}
+          highlightedParts={highlightedParts}
+          onClose={closePreview}
+          isDarkMode={isDarkMode}
+        />
+      )}
+
       <div className="max-w-5xl mx-auto space-y-2">
         {/* Today date indicator - reduced top/bottom margin */}
         <div className="flex justify-center my-2">
@@ -88,6 +144,18 @@ export default function MessageList({
                 {message.content}
               </div>
 
+              {/* Document Preview Button - Add after message content if the message has sources */}
+              {message.role === "system" &&
+                message.sources &&
+                message.sources.length > 0 && (
+                  <div className="mt-2">
+                    <PreviewButton
+                      onClick={() => handlePreviewDocument(message.sources[0])}
+                      isDarkMode={isDarkMode}
+                    />
+                  </div>
+                )}
+
               {/* Source citations - reduced spacing */}
               {message.sources && message.sources.length > 0 && (
                 <div
@@ -127,6 +195,7 @@ export default function MessageList({
                           </span>
                         </div>
                         <button
+                          onClick={() => handlePreviewDocument(source)}
                           className={`ml-1 p-0.5 rounded hover:${
                             isDarkMode ? "bg-gray-700" : "bg-gray-300"
                           } flex-shrink-0`}
@@ -156,6 +225,7 @@ export default function MessageList({
           </div>
         ))}
 
+        {/* Rest of the component remains the same */}
         {/* Loading indicator - reduced spacing */}
         {isLoading && (
           <div className="flex justify-start">
