@@ -196,65 +196,38 @@ export default function NewSection({ selectedLawType, setSelectedLawType }) {
         </div>
 
         {/* Law Type Selection Form */}
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {LAW_TYPES.map((lawType) => (
-              <div
-                key={lawType.id}
-                onClick={() => handleLawTypeSelect(lawType)}
-                className={`relative cursor-pointer rounded-xl border-2 p-4 transition-all ${
-                  selectedLawType?.id === lawType.id
-                    ? 'border-blue-500 bg-blue-50'
-                    : 'border-gray-200 hover:border-blue-300 hover:bg-gray-50'
-                }`}
-              >
-                <div className="flex items-start space-x-4">
-                  <div className="text-2xl">{lawType.icon}</div>
-                  <div className="flex-1">
-                    <h3 className="font-semibold text-gray-900 mb-1">
-                      {lawType.name}
-                    </h3>
-                    <p className="text-sm text-gray-600">
-                      {lawType.description}
-                    </p>
-                  </div>
-                  {selectedLawType?.id === lawType.id && (
-                    <div className="absolute top-3 right-3">
-                      <div className="h-5 w-5 rounded-full bg-blue-500 flex items-center justify-center">
-                        <ChevronRight className="h-4 w-4 text-white" />
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Submit Button */}
-          <div className="flex justify-center mt-8">
-            <button
-              type="submit"
-              disabled={!selectedLawType || isSubmitting}
-              className={`px-6 py-3 rounded-lg font-medium text-white transition-all ${
-                selectedLawType && !isSubmitting
-                  ? 'bg-blue-600 hover:bg-blue-700'
-                  : 'bg-gray-400 cursor-not-allowed'
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {LAW_TYPES.map((lawType) => (
+            <div
+              key={lawType.id}
+              onClick={() => handleLawTypeSelect(lawType)}
+              className={`relative cursor-pointer rounded-xl border-2 p-4 transition-all ${
+                selectedLawType?.id === lawType.id
+                  ? 'border-blue-500 bg-blue-50'
+                  : 'border-gray-200 hover:border-blue-300 hover:bg-gray-50'
               }`}
             >
-              {isSubmitting ? (
-                <span className="flex items-center">
-                  <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                  </svg>
-                  Processing...
-                </span>
-              ) : (
-                'Start New Session'
-              )}
-            </button>
-          </div>
-        </form>
+              <div className="flex items-start space-x-4">
+                <div className="text-2xl">{lawType.icon}</div>
+                <div className="flex-1">
+                  <h3 className="font-semibold text-gray-900 mb-1">
+                    {lawType.name}
+                  </h3>
+                  <p className="text-sm text-gray-600">
+                    {lawType.description}
+                  </p>
+                </div>
+                {selectedLawType?.id === lawType.id && (
+                  <div className="absolute top-3 right-3">
+                    <div className="h-5 w-5 rounded-full bg-blue-500 flex items-center justify-center">
+                      <ChevronRight className="h-4 w-4 text-white" />
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
 
         {/* Selected Law Type Display */}
         {selectedLawType && (
