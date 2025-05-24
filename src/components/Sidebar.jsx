@@ -79,6 +79,25 @@ export default function Sidebar({
         <ul className="space-y-1 px-2">
           <li>
             <button
+              onClick={() => setActiveTab("newsection")}
+              className={`w-full flex items-center p-2 rounded-lg transition-colors ${
+                activeTab === "newsection"
+                  ? "bg-blue-600/10 text-blue-400"
+                  : "text-gray-300 hover:bg-gray-800/50"
+              }`}
+            >
+              <FileText
+                className={`h-4 w-4 ${
+                  activeTab === "newsection" ? "text-blue-400" : ""
+                }`}
+              />
+              {!isSidebarCollapsed && (
+                <span className="ml-3 text-sm">Start New Section</span>
+              )}
+            </button>
+          </li>
+          <li>
+            <button
               onClick={() => setActiveTab("chat")}
               className={`w-full flex items-center p-2 rounded-lg transition-colors ${
                 activeTab === "chat"

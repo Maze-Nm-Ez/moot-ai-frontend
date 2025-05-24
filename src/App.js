@@ -1,15 +1,21 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "./components/Header";
 import ChatView from "./components/ChatView";
 import UploadView from "./components/UploadView";
 import HistoryView from "./components/HistoryView";
+import NewSection from "./components/newSession/NewSection";
 import Footer from "./components/Footer";
 import Sidebar from "./components/Sidebar";
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState("chat"); // 'chat', 'upload', 'history'
+  const [activeTab, setActiveTab] = useState("chat"); // 'chat', 'upload', 'history', 'newsection'
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(true);
+  const [selectedLawType, setSelectedLawType] = useState(() => {
+    // Initialize from localStorage if available
+    const saved = localStorage.getItem('selectedLawType');
+    return saved ? JSON.parse(saved) : null;
+  });
   const [messages, setMessages] = useState([
     {
       id: 1,
@@ -41,6 +47,15 @@ export default function App() {
     },
   ]);
   const [currentChatId, setCurrentChatId] = useState("current");
+
+  // Save selectedLawType to localStorage whenever it changes
+  useEffect(() => {
+    if (selectedLawType) {
+      localStorage.setItem('selectedLawType', JSON.stringify(selectedLawType));
+    } else {
+      localStorage.removeItem('selectedLawType');
+    }
+  }, [selectedLawType]);
 
   // Handle file upload
   const handleFileUpload = (files) => {
@@ -147,8 +162,6 @@ export default function App() {
     setIsDarkMode(!isDarkMode);
   };
 
-  // Add this function after the other state variables in App.js
-
   // Mock function to fetch document details - in real implementation, call your backend
   const fetchDocumentDetails = async (documentId, sourceId) => {
     // In a real implementation, this would be an API call to your backend
@@ -217,6 +230,13 @@ export default function App() {
             isDarkMode ? "bg-gray-900" : "bg-white"
           }`}
         >
+          {activeTab === "newsection" && (
+            <NewSection 
+              selectedLawType={selectedLawType}
+              setSelectedLawType={setSelectedLawType}
+            />
+          )}
+
           {activeTab === "chat" && (
             <ChatView
               messages={messages}
