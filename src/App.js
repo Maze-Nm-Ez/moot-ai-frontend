@@ -147,6 +147,8 @@ export default function App() {
     setActiveTab("newsection");
   };
 
+  // Add this function after the other state variables in App.js
+
   // Mock function to fetch document details - in real implementation, call your backend
   const fetchDocumentDetails = async (documentId, sourceId) => {
     // In a real implementation, this would be an API call to your backend
