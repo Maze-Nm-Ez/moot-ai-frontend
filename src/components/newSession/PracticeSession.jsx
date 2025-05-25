@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { ArrowLeft, FileText, ExternalLink, BookOpen, Scale } from 'lucide-react';
+import { mootCourtRoyalParkScript } from '../../data/mootCourtRoyalPark';
+import MootCourtChat from './MootCourtChat';
 
 const CASE_RESOURCES = {
   'royal-park-murder': [
@@ -27,8 +29,55 @@ const CASE_RESOURCES = {
   ]
 };
 
-export default function PracticeSession({ selectedCase, selectedRole, selectedPracticeMode, onBack }) {
+export default function PracticeSession({ selectedCase, selectedRole, selectedPracticeMode, onBack, onBeginPracticeSession }) {
+  const [started, setStarted] = useState(false);
   const resources = CASE_RESOURCES[selectedCase.id] || [];
+
+  // Debug log for script
+  useEffect(() => {
+    if (started) {
+      console.log('Practice Session Started:', {
+        script: mootCourtRoyalParkScript,
+        role: selectedRole,
+        mode: selectedPracticeMode
+      });
+    }
+  }, [started, selectedRole, selectedPracticeMode]);
+
+  if (started) {
+    return (
+      <div className="flex flex-col h-full">
+        {/* Case Info Header */}
+        <div className="bg-blue-50 border border-blue-200 rounded-xl p-6 mb-6 shadow">
+          <div className="flex justify-between items-start">
+            <div>
+              <div className="text-2xl font-bold text-blue-900 mb-2">
+                {selectedCase.title}
+              </div>
+              <div className="text-base text-gray-800">
+                <div><b>Case:</b> Attorney General v. Jude Shramantha Jayamaha</div>
+                <div><b>Court:</b> Moot Court (Modeled after Court of Appeal)</div>
+                <div><b>Your Role:</b> {selectedRole.name}</div>
+                <div><b>Mode:</b> {selectedPracticeMode.name}</div>
+              </div>
+            </div>
+            <button
+              onClick={onBack}
+              className="flex items-center text-gray-600 hover:text-gray-900"
+            >
+              <ArrowLeft className="h-5 w-5 mr-2" />
+              Back
+            </button>
+          </div>
+        </div>
+
+        {/* Chat Component */}
+        <div className="flex-1 min-h-0">
+          <MootCourtChat script={mootCourtRoyalParkScript} />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-8">
@@ -110,7 +159,7 @@ export default function PracticeSession({ selectedCase, selectedRole, selectedPr
           
           <div className="flex justify-center">
             <button
-              onClick={() => console.log('Start practice')}
+              onClick={() => setStarted(true)}
               className="px-8 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors"
             >
               Begin Practice Session

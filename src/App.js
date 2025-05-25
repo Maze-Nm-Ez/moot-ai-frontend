@@ -6,6 +6,7 @@ import HistoryView from "./components/HistoryView";
 import NewSection from "./components/newSession/NewSection";
 import Footer from "./components/Footer";
 import Sidebar from "./components/Sidebar";
+import { mootCourtRoyalParkScript } from "./data/mootCourtRoyalPark";
 
 export default function App() {
   const [activeTab, setActiveTab] = useState("chat"); // 'chat', 'upload', 'history', 'newsection'
@@ -195,6 +196,11 @@ export default function App() {
     });
   };
 
+  const startMootCourtSimulation = () => {
+    setMessages(mootCourtRoyalParkScript);
+    setActiveTab("chat");
+  };
+
   // Pass this function down to ChatView as a prop
 
   return (
@@ -234,6 +240,7 @@ export default function App() {
             <NewSection 
               selectedLawType={selectedLawType}
               setSelectedLawType={setSelectedLawType}
+              onBeginPracticeSession={startMootCourtSimulation}
             />
           )}
 

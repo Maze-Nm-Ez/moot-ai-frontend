@@ -92,7 +92,7 @@ export default function Sidebar({
                 }`}
               />
               {!isSidebarCollapsed && (
-                <span className="ml-3 text-sm">Start New Section</span>
+                <span className="ml-3 text-sm">Start New Session</span>
               )}
             </button>
           </li>

@@ -5,14 +5,14 @@ const ROLES = [
   {
     id: 'prosecution',
     name: 'Prosecution',
-    description: 'Represent the state and present the case against the accused',
+    description: 'Advocate for the state by presenting evidence and arguments against the accused.',
     icon: <Shield className="h-6 w-6" />,
     color: 'from-red-500 to-red-600'
   },
   {
     id: 'defense',
     name: 'Defense',
-    description: 'Represent the accused and protect their rights',
+    description: 'Protect the rights of the accused and challenge the prosecution\'s case.',
     icon: <Scale className="h-6 w-6" />,
     color: 'from-blue-500 to-blue-600'
   }

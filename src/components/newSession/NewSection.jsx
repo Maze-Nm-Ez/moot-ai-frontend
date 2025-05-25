@@ -43,7 +43,7 @@ const LAW_TYPES = [
   }
 ];
 
-export default function NewSection({ selectedLawType, setSelectedLawType }) {
+export default function NewSection({ selectedLawType, setSelectedLawType, onBeginPracticeSession }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showCases, setShowCases] = useState(false);
   const [selectedCase, setSelectedCase] = useState(null);
@@ -129,6 +129,7 @@ export default function NewSection({ selectedLawType, setSelectedLawType }) {
               selectedRole={selectedRole}
               selectedPracticeMode={selectedPracticeMode}
               onBack={handleBack}
+              onBeginPracticeSession={onBeginPracticeSession}
             />
           </div>
         </div>
