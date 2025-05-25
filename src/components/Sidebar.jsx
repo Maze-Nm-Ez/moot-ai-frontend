@@ -95,7 +95,7 @@ export default function Sidebar({
                 <span className="ml-3 text-sm">Mooting Session</span>
               )}
             </button>
-          </li> */}
+          </li> 
           <li>
             <button
               onClick={() => setActiveTab("history")}

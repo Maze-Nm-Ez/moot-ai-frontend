@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Shield, ChevronRight, ArrowLeft } from 'lucide-react';
+import { Shield, ChevronRight, ArrowLeft, Search } from 'lucide-react';
 import CriminalCases from './CriminalCases';
 import RoleSelection from './RoleSelection';
 import PracticeSession from './PracticeSession';
@@ -9,77 +9,53 @@ const LAW_TYPES = [
     id: 'criminal',
     name: 'Criminal Law',
     description: 'Deals with crimes and their punishments',
-    icon: '⚖️'
+    icon: '⚖️',
   },
   {
     id: 'constitutional',
     name: 'Constitutional Law',
     description: 'Fundamental rights and government structure',
-    icon: '📜'
+    icon: '📜',
   },
   {
     id: 'civil',
     name: 'Civil Law',
     description: 'Private rights and remedies',
-    icon: '🤝'
+    icon: '🤝',
   },
   {
     id: 'corporate',
     name: 'Corporate Law',
     description: 'Business organizations and commercial transactions',
-    icon: '🏢'
+    icon: '🏢',
   },
   {
     id: 'family',
     name: 'Family Law',
     description: 'Marriage, divorce, and child custody',
-    icon: '👨‍👩‍👧‍👦'
+    icon: '👨‍👩‍👧‍👦',
   },
   {
     id: 'property',
     name: 'Property Law',
     description: 'Real estate and personal property rights',
-    icon: '🏠'
-  }
+    icon: '🏠',
+  },
 ];
 
-export default function NewSection({ selectedLawType, setSelectedLawType, onBeginPracticeSession }) {
-  const [isSubmitting, setIsSubmitting] = useState(false);
+export default function NewSection({ selectedLawType, setSelectedLawType, onBeginPracticeSession, setActiveTab }) {
   const [showCases, setShowCases] = useState(false);
   const [selectedCase, setSelectedCase] = useState(null);
   const [selectedRole, setSelectedRole] = useState(null);
   const [selectedPracticeMode, setSelectedPracticeMode] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
 
   const handleLawTypeSelect = (lawType) => {
     setSelectedLawType(lawType);
-    // Immediately show cases for criminal law
-    if (lawType.id === 'criminal') {
-      setShowCases(true);
-    }
-    // Reset other states
+    setShowCases(true);
     setSelectedCase(null);
     setSelectedRole(null);
     setSelectedPracticeMode(null);
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!selectedLawType) return;
-
-    setIsSubmitting(true);
-    try {
-      await new Promise(resolve => setTimeout(resolve, 500));
-      
-      if (selectedLawType.id === 'criminal') {
-        setShowCases(true);
-      } else {
-        console.log('Law type saved successfully:', selectedLawType);
-      }
-    } catch (error) {
-      console.error('Error submitting law type:', error);
-    } finally {
-      setIsSubmitting(false);
-    }
   };
 
   const handleCaseSelect = (case_) => {
@@ -95,33 +71,45 @@ export default function NewSection({ selectedLawType, setSelectedLawType, onBegi
   };
 
   const handleBack = () => {
-    // If we're in practice session, go back to role selection
     if (selectedRole && selectedPracticeMode) {
       setSelectedPracticeMode(null);
-    }
-    // If we're in role selection, go back to case selection
-    else if (selectedRole) {
+    } else if (selectedRole) {
       setSelectedRole(null);
-    }
-    // If we're in case selection, go back to law type selection
-    else if (selectedCase) {
+    } else if (selectedCase) {
       setSelectedCase(null);
       setShowCases(false);
-    }
-    // If we're in law type selection, reset everything
-    else {
+    } else {
       setSelectedLawType(null);
       setShowCases(false);
       setSelectedCase(null);
       setSelectedRole(null);
       setSelectedPracticeMode(null);
+      setActiveTab('chat'); // Navigate back to main chat view
     }
   };
 
-  // Show practice session if role and practice mode are selected
+  // Filter law types based on search query
+  const filteredLawTypes = LAW_TYPES.filter(
+    (lawType) =>
+      lawType.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      lawType.description.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  // Show practice session
   if (selectedCase && selectedRole && selectedPracticeMode) {
     return (
-      <div className="flex-1 flex flex-col h-full bg-gradient-to-b from-gray-50 to-white">
+      <div className="flex-1 flex flex-col h-full bg-white">
+        <div className="flex-none p-6 border-b border-gray-200">
+          <div className="max-w-4xl mx-auto">
+            <button
+              onClick={handleBack}
+              className="flex items-center text-gray-600 hover:text-gray-900"
+            >
+              <ArrowLeft className="h-5 w-5 mr-2" />
+              Back to Role Selection
+            </button>
+          </div>
+        </div>
         <div className="flex-1 overflow-y-auto p-6">
           <div className="max-w-4xl mx-auto">
             <PracticeSession
@@ -137,10 +125,21 @@ export default function NewSection({ selectedLawType, setSelectedLawType, onBegi
     );
   }
 
-  // Show role selection if case is selected
+  // Show role selection
   if (selectedCase && !selectedRole) {
     return (
-      <div className="flex-1 flex flex-col h-full bg-gradient-to-b from-gray-50 to-white">
+      <div className="flex-1 flex flex-col h-full bg-white">
+        <div className="flex-none p-6 border-b border-gray-200">
+          <div className="max-w-4xl mx-auto">
+            <button
+              onClick={handleBack}
+              className="flex items-center text-gray-600 hover:text-gray-900"
+            >
+              <ArrowLeft className="h-5 w-5 mr-2" />
+              Back to {selectedLawType.name} Cases
+            </button>
+          </div>
+        </div>
         <div className="flex-1 overflow-y-auto p-6">
           <div className="max-w-4xl mx-auto">
             <RoleSelection
@@ -155,10 +154,10 @@ export default function NewSection({ selectedLawType, setSelectedLawType, onBegi
     );
   }
 
-  // Show criminal cases view
+  // Show cases view
   if (showCases && selectedLawType?.id === 'criminal' && !selectedCase) {
     return (
-      <div className="flex-1 flex flex-col h-full bg-gradient-to-b from-gray-50 to-white">
+      <div className="flex-1 flex flex-col h-full bg-white">
         <div className="flex-none p-6 border-b border-gray-200">
           <div className="max-w-4xl mx-auto">
             <button
@@ -172,6 +171,9 @@ export default function NewSection({ selectedLawType, setSelectedLawType, onBegi
         </div>
         <div className="flex-1 overflow-y-auto p-6">
           <div className="max-w-4xl mx-auto">
+            <h2 className="text-2xl font-semibold text-gray-900 mb-4">
+              {selectedLawType.name} Cases
+            </h2>
             <CriminalCases onCaseSelect={handleCaseSelect} />
           </div>
         </div>
@@ -181,36 +183,48 @@ export default function NewSection({ selectedLawType, setSelectedLawType, onBegi
 
   // Show law type selection view
   return (
-    <div className="flex-1 p-6 bg-gradient-to-b from-gray-50 to-white">
-      <div className="max-w-3xl mx-auto">
+    <div className="flex-1 p-6 bg-white">
+      <div className="max-w-4xl mx-auto">
         {/* Header Section */}
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center rounded-full bg-gradient-to-br from-cyan-500 to-cyan-600 p-3 shadow-lg shadow-cyan-500/20 mb-4">
             <Shield className="h-8 w-8 text-white" />
           </div>
           <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            Legal Intelligence
+            Moot AI Mooting Practice
           </h1>
           <p className="text-gray-600">
-            Select the type of law you want to discuss
+            Select a law type to start your mooting practice session
           </p>
         </div>
 
-        {/* Law Type Selection Form */}
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {LAW_TYPES.map((lawType) => (
+        {/* Search Bar */}
+        <div className="mb-6">
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+            <input
+              type="text"
+              placeholder="Search law types..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-cyan-500 text-gray-900"
+            />
+          </div>
+        </div>
+
+        {/* Law Types Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {filteredLawTypes.length > 0 ? (
+            filteredLawTypes.map((lawType) => (
               <div
                 key={lawType.id}
                 onClick={() => handleLawTypeSelect(lawType)}
-                className={`relative cursor-pointer rounded-xl border-2 p-4 transition-all ${
-                  selectedLawType?.id === lawType.id
-                    ? 'border-cyan-500 bg-cyan-50'
-                    : 'border-gray-200 hover:border-cyan-300 hover:bg-gray-50'
+                className={`cursor-pointer rounded-lg border border-gray-200 p-4 hover:bg-cyan-50 hover:border-cyan-500 transition-all shadow-sm ${
+                  selectedLawType?.id === lawType.id ? 'border-cyan-500 bg-cyan-50' : ''
                 }`}
               >
                 <div className="flex items-start space-x-4">
-                  <div className="text-2xl">{lawType.icon}</div>
+                  <div className="text-3xl">{lawType.icon}</div>
                   <div className="flex-1">
                     <h3 className="font-semibold text-gray-900 mb-1">
                       {lawType.name}
@@ -219,49 +233,15 @@ export default function NewSection({ selectedLawType, setSelectedLawType, onBegi
                       {lawType.description}
                     </p>
                   </div>
-                  {selectedLawType?.id === lawType.id && (
-                    <div className="absolute top-3 right-3">
-                      <div className="h-5 w-5 rounded-full bg-cyan-500 flex items-center justify-center">
-                        <ChevronRight className="h-4 w-4 text-white" />
-                      </div>
-                    </div>
-                  )}
+                  <ChevronRight className="h-5 w-5 text-cyan-500 mt-1" />
                 </div>
               </div>
-            ))}
-          </div>
-
-          {/* Submit Button */}
-          <div className="flex justify-center mt-8">
-            <button
-              type="submit"
-              disabled={!selectedLawType || isSubmitting}
-              className={`px-6 py-3 rounded-lg font-medium text-white transition-all ${
-                selectedLawType && !isSubmitting
-                  ? 'bg-cyan-600 hover:bg-cyan-700'
-                  : 'bg-gray-400 cursor-not-allowed'
-              }`}
-            >
-              <div className="flex items-start space-x-4">
-                <div className="text-2xl">{lawType.icon}</div>
-                <div className="flex-1">
-                  <h3 className="font-semibold text-gray-900 mb-1">
-                    {lawType.name}
-                  </h3>
-                  <p className="text-sm text-gray-600">
-                    {lawType.description}
-                  </p>
-                </div>
-                {selectedLawType?.id === lawType.id && (
-                  <div className="absolute top-3 right-3">
-                    <div className="h-5 w-5 rounded-full bg-blue-500 flex items-center justify-center">
-                      <ChevronRight className="h-4 w-4 text-white" />
-                    </div>
-                  </div>
-                )}
-              </div>
+            ))
+          ) : (
+            <div className="col-span-full text-center py-8">
+              <p className="text-gray-600">No law types match your search.</p>
             </div>
-          ))}
+          )}
         </div>
 
         {/* Selected Law Type Display */}
@@ -275,4 +255,4 @@ export default function NewSection({ selectedLawType, setSelectedLawType, onBegi
       </div>
     </div>
   );
-} 
+}

@@ -9,9 +9,6 @@ import NewSection from "./components/newSession/NewSection";
 import CaseLibrary from "./components/caseLibrary/CaseLibrary";
 import Achivements from "./components/achivements/Achivements";
 import { mootCourtRoyalParkScript } from "./data/mootCourtRoyalPark";
-import NewSection from "./components/newSession/NewSection";
-import CaseLibrary from "./components/caseLibrary/CaseLibrary";
-import Achivements from "./components/achivements/Achivements";
 
 export default function App() {
   const [activeTab, setActiveTab] = useState("chat"); // 'chat', 'upload', 'history'
