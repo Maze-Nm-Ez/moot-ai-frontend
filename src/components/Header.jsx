@@ -25,7 +25,7 @@ export default function Header({
       case "history":
         return "Chat History";
       default:
-        return "Legal Intelligence";
+        return "Moot AI";
     }
   };
 

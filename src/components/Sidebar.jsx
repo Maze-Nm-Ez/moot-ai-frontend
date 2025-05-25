@@ -38,10 +38,10 @@ export default function Sidebar({
             </div>
             <div className="ml-2.5">
               <h1 className="text-lg font-bold tracking-tight bg-gradient-to-r from-white to-gray-300 text-transparent bg-clip-text">
-                LegalAssist
+                Moot AI
               </h1>
               <div className="text-[9px] text-blue-400 -mt-1 font-medium">
-                DOCUMENT INTELLIGENCE
+                Mooting Practice Assistant
               </div>
             </div>
           </div>
@@ -70,7 +70,7 @@ export default function Sidebar({
       >
         <Plus className="h-4 w-4" />
         {!isSidebarCollapsed && (
-          <span className="ml-2 font-medium text-sm">New Conversation</span>
+          <span className="ml-2 font-medium text-sm">New Mooting Session</span>
         )}
       </button>
 
@@ -86,54 +86,54 @@ export default function Sidebar({
                   : "text-gray-300 hover:bg-gray-800/50"
               }`}
             >
-              <FileText
+              <MessageSquare
                 className={`h-4 w-4 ${
                   activeTab === "newsection" ? "text-blue-400" : ""
                 }`}
               />
               {!isSidebarCollapsed && (
-                <span className="ml-3 text-sm">Start New Section</span>
+                <span className="ml-3 text-sm">Mooting Session</span>
               )}
             </button>
           </li>
-          <li>
+          {/* <li>
             <button
-              onClick={() => setActiveTab("chat")}
+              onClick={() => setActiveTab("case_library")}
               className={`w-full flex items-center p-2 rounded-lg transition-colors ${
-                activeTab === "chat"
+                activeTab === "case_library"
                   ? "bg-blue-600/10 text-blue-400"
                   : "text-gray-300 hover:bg-gray-800/50"
               }`}
             >
               <MessageSquare
                 className={`h-4 w-4 ${
-                  activeTab === "chat" ? "text-blue-400" : ""
+                  activeTab === "case_library" ? "text-blue-400" : ""
                 }`}
               />
               {!isSidebarCollapsed && (
-                <span className="ml-3 text-sm">Chat</span>
+                <span className="ml-3 text-sm">Case Library</span>
               )}
             </button>
-          </li>
-          <li>
+          </li> */}
+          {/* <li>
             <button
-              onClick={() => setActiveTab("upload")}
+              onClick={() => setActiveTab("achivements")}
               className={`w-full flex items-center p-2 rounded-lg transition-colors ${
-                activeTab === "upload"
+                activeTab === "achivements"
                   ? "bg-blue-600/10 text-blue-400"
                   : "text-gray-300 hover:bg-gray-800/50"
               }`}
             >
               <Upload
                 className={`h-4 w-4 ${
-                  activeTab === "upload" ? "text-blue-400" : ""
+                  activeTab === "achivements" ? "text-blue-400" : ""
                 }`}
               />
               {!isSidebarCollapsed && (
-                <span className="ml-3 text-sm">Upload</span>
+                <span className="ml-3 text-sm">Achivements</span>
               )}
             </button>
-          </li>
+          </li> */}
           <li>
             <button
               onClick={() => setActiveTab("history")}
@@ -185,8 +185,47 @@ export default function Sidebar({
         )}
       </nav>
 
+      <div className="mt-5 px-3">
+        <button
+          onClick={() => setActiveTab("case_library")}
+          className={`w-full flex items-center p-2 rounded-lg transition-colors ${
+            activeTab === "case_library"
+              ? "bg-blue-600/10 text-blue-400"
+              : "text-gray-300 hover:bg-gray-800/50"
+          }`}
+        >
+          <BookOpen
+            className={`h-4 w-4 ${
+              activeTab === "case_library" ? "text-blue-400" : ""
+            }`}
+          />
+          {!isSidebarCollapsed && (
+            <span className="ml-3 text-sm">Case Library</span>
+          )}
+        </button>
+      </div>
+
+      <div className="mt-5 px-3">
+        <button
+          onClick={() => setActiveTab("achivements")}
+          className={`w-full flex items-center p-2 rounded-lg transition-colors ${
+            activeTab === "achivements"
+              ? "bg-blue-600/10 text-blue-400"
+              : "text-gray-300 hover:bg-gray-800/50"
+          }`}
+          >
+            <BookOpen
+              className={`h-4 w-4 ${
+                activeTab === "achivements" ? "text-blue-400" : ""
+              }`}
+            />
+            {!isSidebarCollapsed && (
+              <span className="ml-3 text-sm">Achivements</span>
+            )}
+          </button>
+      </div>
       {/* Document Library - when sidebar is expanded */}
-      {!isSidebarCollapsed && (
+      {/* {!isSidebarCollapsed && (
         <div className="px-3 mb-4">
           <h3 className="px-2 text-[10px] font-semibold text-gray-400 uppercase tracking-wider mb-1.5">
             Document Library
@@ -212,7 +251,7 @@ export default function Sidebar({
             </div>
           </div>
         </div>
-      )}
+      )} */}
 
       {/* User profile section */}
       <div className="border-t border-gray-700/50 p-3">
