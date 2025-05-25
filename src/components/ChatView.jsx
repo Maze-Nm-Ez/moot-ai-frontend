@@ -5,7 +5,6 @@ import ChatInput from "./chat/ChatInput";
 export default function ChatView({
   messages,
   setMessages,
-  isDarkMode,
   fetchDocumentDetails,
 }) {
   const [input, setInput] = useState("");
@@ -73,21 +72,18 @@ export default function ChatView({
   };
 
   return (
-    <div className="flex flex-col w-full h-full">
+    <div className="flex flex-col w-full h-full bg-white">
       <MessageList
         messages={messages}
         isLoading={isLoading}
         messagesEndRef={messagesEndRef}
-        isDarkMode={isDarkMode}
         fetchDocumentDetails={fetchDocumentDetails}
       />
-
       <ChatInput
         input={input}
         setInput={setInput}
         handleSubmit={handleSubmit}
         handleKeyDown={handleKeyDown}
-        isDarkMode={isDarkMode}
       />
     </div>
   );

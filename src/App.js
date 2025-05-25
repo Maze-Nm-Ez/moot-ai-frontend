@@ -5,11 +5,11 @@ import UploadView from "./components/UploadView";
 import HistoryView from "./components/HistoryView";
 import Footer from "./components/Footer";
 import Sidebar from "./components/Sidebar";
+import NewSection from "./components/newSession/NewSection";
 
 export default function App() {
   const [activeTab, setActiveTab] = useState("chat"); // 'chat', 'upload', 'history'
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(true);
   const [messages, setMessages] = useState([
     {
       id: 1,
@@ -20,6 +20,8 @@ export default function App() {
   ]);
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [uploadProgress, setUploadProgress] = useState({});
+  const [selectedLawType, setSelectedLawType] = useState(null);
+
   const [chatHistory, setChatHistory] = useState([
     {
       id: "chat-1",
@@ -139,15 +141,8 @@ export default function App() {
           "Welcome to Legal Intelligence. You can ask questions about your legal documents, and I'll provide answers based on the content you've uploaded.",
       },
     ]);
-    setActiveTab("chat");
+    setActiveTab("newsection");
   };
-
-  // Toggle theme
-  const toggleTheme = () => {
-    setIsDarkMode(!isDarkMode);
-  };
-
-  // Add this function after the other state variables in App.js
 
   // Mock function to fetch document details - in real implementation, call your backend
   const fetchDocumentDetails = async (documentId, sourceId) => {
@@ -182,14 +177,8 @@ export default function App() {
     });
   };
 
-  // Pass this function down to ChatView as a prop
-
   return (
-    <div
-      className={`flex h-screen ${
-        isDarkMode ? "bg-gray-800 text-white" : "bg-gray-50 text-gray-900"
-      }`}
-    >
+    <div className="flex h-screen bg-gray-50 text-gray-900">
       {/* Sidebar */}
       <Sidebar
         activeTab={activeTab}
@@ -206,22 +195,15 @@ export default function App() {
         <Header
           activeTab={activeTab}
           setActiveTab={setActiveTab}
-          isDarkMode={isDarkMode}
-          toggleTheme={toggleTheme}
           currentChatId={currentChatId}
           chatHistory={chatHistory}
         />
 
-        <main
-          className={`flex-grow flex overflow-hidden ${
-            isDarkMode ? "bg-gray-900" : "bg-white"
-          }`}
-        >
+        <main className="flex-grow flex overflow-hidden bg-white">
           {activeTab === "chat" && (
             <ChatView
               messages={messages}
               setMessages={setMessages}
-              isDarkMode={isDarkMode}
               currentChatId={currentChatId}
               fetchDocumentDetails={fetchDocumentDetails}
             />
@@ -233,7 +215,6 @@ export default function App() {
               uploadProgress={uploadProgress}
               handleFileUpload={handleFileUpload}
               removeFile={removeFile}
-              isDarkMode={isDarkMode}
             />
           )}
 
@@ -242,12 +223,18 @@ export default function App() {
               chatHistory={chatHistory}
               selectChat={selectChat}
               createNewChat={createNewChat}
-              isDarkMode={isDarkMode}
+            />
+          )}
+
+          {activeTab === "newsection" && (
+            <NewSection
+              selectedLawType={selectedLawType}
+              setSelectedLawType={setSelectedLawType}
             />
           )}
         </main>
 
-        <Footer isDarkMode={isDarkMode} />
+        <Footer />
       </div>
     </div>
   );

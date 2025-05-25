@@ -1,10 +1,8 @@
-import { Moon, Sun, HelpCircle, Settings } from "lucide-react";
+import { HelpCircle, Settings } from "lucide-react";
 
 export default function Header({
   activeTab,
   setActiveTab,
-  isDarkMode,
-  toggleTheme,
   currentChatId,
   chatHistory,
 }) {
@@ -20,8 +18,10 @@ export default function Header({
     switch (activeTab) {
       case "chat":
         return getCurrentChatTitle();
-      case "upload":
-        return "Document Upload";
+      case "achivements":
+        return "Achivements";
+      case "case_library":
+        return "Case Library";
       case "history":
         return "Chat History";
       default:
@@ -31,36 +31,20 @@ export default function Header({
 
   return (
     <header
-      className={`px-6 py-3 ${
-        isDarkMode ? "bg-gray-800 border-gray-700" : "bg-white border-gray-200"
-      } border-b shadow-sm flex items-center justify-between`}
+      className="px-6 py-3 bg-white border-b border-gray-200 shadow-sm flex items-center justify-between"
     >
-      <h1 className="text-xl font-semibold">{getTitle()}</h1>
+      <h1 className="text-xl font-semibold text-gray-900">{getTitle()}</h1>
 
       <div className="flex items-center space-x-3">
         <button
-          onClick={toggleTheme}
-          className={`p-2 rounded-full ${
-            isDarkMode ? "hover:bg-gray-700" : "hover:bg-gray-100"
-          }`}
-          title={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
-        >
-          {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
-        </button>
-
-        <button
-          className={`p-2 rounded-full ${
-            isDarkMode ? "hover:bg-gray-700" : "hover:bg-gray-100"
-          }`}
+          className="p-2 rounded-full hover:bg-gray-100"
           title="Help"
         >
           <HelpCircle size={20} />
         </button>
 
         <button
-          className={`p-2 rounded-full ${
-            isDarkMode ? "hover:bg-gray-700" : "hover:bg-gray-100"
-          }`}
+          className="p-2 rounded-full hover:bg-gray-100"
           title="Settings"
         >
           <Settings size={20} />
