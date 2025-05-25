@@ -54,7 +54,6 @@ export default function CriminalCases({ onCaseSelect }) {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-2xl font-bold text-gray-900">Select a Criminal Case</h2>
         <div className="flex items-center text-sm text-gray-500">
           <BookOpen className="h-4 w-4 mr-1" />
           <span>Select a case to analyze</span>

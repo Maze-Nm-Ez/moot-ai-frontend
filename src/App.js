@@ -28,21 +28,21 @@ export default function App() {
   const [chatHistory, setChatHistory] = useState([
     {
       id: "chat-1",
-      title: "NDA Review Discussion",
+      title: "Royal Park Murder Moot",
       date: "2 May 2025",
-      messages: 4,
+      messages: 5,
     },
     {
       id: "chat-2",
-      title: "Contract Interpretation",
+      title: "Constitutional Rights Challenge",
       date: "30 Apr 2025",
-      messages: 7,
+      messages: 8,
     },
     {
       id: "chat-3",
-      title: "Legal Compliance Inquiry",
+      title: "Family Law Custody Dispute",
       date: "28 Apr 2025",
-      messages: 3,
+      messages: 6,
     },
   ]);
   const [currentChatId, setCurrentChatId] = useState("current");
@@ -147,12 +147,7 @@ export default function App() {
     setActiveTab("newsection");
   };
 
-  const handleBeginPracticeSession = (sessionData) => {
-    console.log('Starting practice session:', sessionData);
-    // Here you can add any logic needed when starting a practice session
-    // For example, switching to chat view with the session context
-    setActiveTab('chat');
-  };
+  // Add this function after the other state variables in App.js
 
   // Mock function to fetch document details - in real implementation, call your backend
   const fetchDocumentDetails = async (documentId, sourceId) => {
@@ -241,8 +236,6 @@ export default function App() {
             <NewSection
               selectedLawType={selectedLawType}
               setSelectedLawType={setSelectedLawType}
-              onBeginPracticeSession={handleBeginPracticeSession}
-              setActiveTab={setActiveTab}
             />
           )}
 
