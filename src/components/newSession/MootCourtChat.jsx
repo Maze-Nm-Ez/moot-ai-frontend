@@ -51,6 +51,7 @@ export default function MootCourtChat({ script, onShowScore }) {
 
   const handleNextMessage = async (index = currentIndex) => {
     if (!script || index >= script.length) {
+      console.log("handleNextMessage: chatFinished set to true (script end)");
       setChatFinished(true);
       return;
     }
@@ -97,6 +98,7 @@ export default function MootCourtChat({ script, onShowScore }) {
     setIsWaitingForUser(false);
 
     if (nextIndex >= script.length) {
+      console.log("handleUserSubmit: chatFinished set to true (nextIndex >= script.length)");
       setChatFinished(true);
       return;
     }
@@ -155,55 +157,52 @@ export default function MootCourtChat({ script, onShowScore }) {
         <div ref={messagesEndRef} />
       </div>
 
-      {/* Show score button at end of chat */}
-      {chatFinished ? (
-        <div className="border-t border-green-200 bg-green-50 p-6 flex justify-center">
-          <button
-            className="px-8 py-3 bg-green-600 text-white rounded-lg font-bold text-lg shadow hover:bg-green-700 transition-colors"
-            onClick={() => (typeof onShowScore === 'function' ? onShowScore() : null)}
-          >
-            See Your Score
-          </button>
-        </div>
-      ) : (
-        // Input Form - Always visible
-        <div className="border-t border-blue-200 bg-blue-50 p-4">
-          <form onSubmit={handleUserSubmit} className="max-w-4xl mx-auto">
-            <div className="flex flex-col gap-2">
-              {/* Prompt */}
-              <div className={`text-sm font-medium mb-1 ${isUserTurn ? 'text-blue-800' : 'text-gray-400'}`}> 
-                {isUserTurn
-                  ? (script[currentIndex]?.prompt || 'Enter your response as Defense Counsel...')
-                  : 'Please wait for your turn...'}
-              </div>
-              {/* Input Area */}
-              <div className="flex gap-2">
-                <input
-                  ref={inputRef}
-                  type="text"
-                  value={userInput}
-                  onChange={(e) => setUserInput(e.target.value)}
-                  placeholder="Type your response..."
-                  className={`flex-1 p-3 border-2 rounded-lg focus:outline-none focus:ring-2 bg-white text-gray-900 placeholder-gray-500 ${isUserTurn ? 'border-blue-300 focus:ring-blue-500 focus:border-transparent' : 'border-gray-300 bg-gray-100 text-gray-400 cursor-not-allowed'}`}
-                  autoFocus={isUserTurn}
-                  disabled={!isUserTurn}
-                />
-                <button
-                  type="submit"
-                  disabled={!isUserTurn || !userInput.trim()}
-                  className={`px-6 py-3 rounded-lg font-medium transition-colors shadow-sm ${isUserTurn ? 'bg-blue-600 text-white hover:bg-blue-700' : 'bg-gray-300 text-gray-500 cursor-not-allowed'}`}
-                >
-                  Send
-                </button>
-              </div>
-              {/* Helper Text */}
-              <div className={`text-xs mt-1 ${isUserTurn ? 'text-blue-600' : 'text-gray-400'}`}> 
-                {isUserTurn ? 'Press Enter to send your response' : ''}
-              </div>
-            </div>
-          </form>
-        </div>
-      )}
+      {/* Input Form – always visible (for debugging) */}
+      <div className="border-t border-blue-200 bg-blue-50 p-4">
+         <form onSubmit={handleUserSubmit} className="max-w-4xl mx-auto">
+           <div className="flex flex-col gap 2">
+             {/* Prompt */}
+             <div className={`text-sm font-medium mb-1 ${isUserTurn ? 'text-blue-800' : 'text-gray-400'}`}> 
+               {isUserTurn
+                 ? (script[currentIndex]?.prompt || 'Enter your response as Defense Counsel...')
+                 : 'Please wait for your turn...'}
+             </div>
+             {/* Input Area */}
+             <div className=" flex gap 2">
+               <input
+                 ref={inputRef}
+                 type="text"
+                 value={userInput}
+                 onChange={(e) => setUserInput(e.target.value)}
+                 placeholder="Type your response..."
+                 className={`flex-1 p-3 border-2 rounded-lg focus:outline-none focus:ring-2 bg-white text-gray-900 placeholder-gray-500 ${isUserTurn ? 'border-blue-300 focus:ring-blue-500 focus:border-transparent' : 'border-gray-300 bg-gray-100 text-gray-400 cursor-not-allowed'}`}
+                 autoFocus={isUserTurn}
+                 disabled={!isUserTurn}
+               />
+               <button
+                 type="submit"
+                 disabled={!isUserTurn || !userInput.trim()}
+                 className={`px-6 py-3 rounded-lg font-medium transition-colors shadow-sm ${isUserTurn ? 'bg-blue-600 text-white hover:bg-blue-700' : 'bg-gray-300 text-gray-500 cursor-not-allowed'}`}
+               >
+                 Send
+               </button>
+             </div>
+             {/* Helper Text */}
+             <div className={`text-xs mt-1 ${isUserTurn ? 'text-blue-600' : 'text-gray-400'}`}> 
+               {isUserTurn ? 'Press Enter to send your response' : ''}
+             </div>
+           </div>
+         </form>
+       </div>
+       {/* Score button (small, modern inline) below the input bar – with blue background */}
+       <div className="border-t border-blue-200 bg-blue-50 p-2 flex justify-center">
+         <button
+           className="px-4 py-1.5 bg-blue-600 text-white rounded text-sm font-medium shadow hover:bg-blue-700 transition-colors"
+           onClick={() => (typeof onShowScore === 'function' ? onShowScore() : null)}
+         >
+           See Your Score
+         </button>
+       </div>
     </div>
   );
 } 

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ArrowLeft, FileText, ExternalLink, BookOpen, Scale } from 'lucide-react';
 import { mootCourtRoyalParkScript } from '../../data/mootCourtRoyalPark';
 import MootCourtChat from './MootCourtChat';
+import ScorePage from './ScorePage';
 
 const CASE_RESOURCES = {
   'royal-park-murder': [
@@ -31,6 +32,7 @@ const CASE_RESOURCES = {
 
 export default function PracticeSession({ selectedCase, selectedRole, selectedPracticeMode, onBack, onBeginPracticeSession }) {
   const [started, setStarted] = useState(false);
+  const [showScore, setShowScore] = useState(false);
   const resources = CASE_RESOURCES[selectedCase.id] || [];
 
   // Debug log for script
@@ -43,6 +45,18 @@ export default function PracticeSession({ selectedCase, selectedRole, selectedPr
       });
     }
   }, [started, selectedRole, selectedPracticeMode]);
+
+  const handleShowScore = () => {
+    setShowScore(true);
+  };
+
+  const handleBackToChat = () => {
+    setShowScore(false);
+  };
+
+  if (showScore) {
+    return <ScorePage onBack={handleBackToChat} />;
+  }
 
   if (started) {
     return (
@@ -73,7 +87,10 @@ export default function PracticeSession({ selectedCase, selectedRole, selectedPr
 
         {/* Chat Component */}
         <div className="flex-1 min-h-0">
-          <MootCourtChat script={mootCourtRoyalParkScript} />
+          <MootCourtChat 
+            script={mootCourtRoyalParkScript} 
+            onShowScore={handleShowScore}
+          />
         </div>
       </div>
     );
