@@ -50,14 +50,7 @@ export default function RoleSelection({ selectedCase, onRoleSelect, onPracticeMo
   return (
     <div className="space-y-8">
       {/* Back button and case info */}
-      <div className="flex items-center justify-between">
-        <button
-          onClick={onBack}
-          className="flex items-center text-gray-600 hover:text-gray-900"
-        >
-          <ArrowLeft className="h-5 w-5 mr-2" />
-          Back to Cases
-        </button>
+      <div className="flex items-center justify-end">
         <div className="text-sm text-gray-500">
           Selected Case: <span className="font-medium text-gray-900">{selectedCase.title}</span>
         </div>

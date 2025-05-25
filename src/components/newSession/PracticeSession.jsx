@@ -176,7 +176,14 @@ export default function PracticeSession({ selectedCase, selectedRole, selectedPr
           
           <div className="flex justify-center">
             <button
-              onClick={() => console.log('Start practice')}
+              onClick={() => {
+                setStarted(true);
+                onBeginPracticeSession({
+                  case: selectedCase,
+                  role: selectedRole,
+                  mode: selectedPracticeMode
+                });
+              }}
               className="px-8 py-3 bg-cyan-600 text-white rounded-lg font-medium hover:bg-cyan-700 transition-colors"
             >
               Begin Practice Session

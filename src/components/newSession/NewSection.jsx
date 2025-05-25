@@ -136,7 +136,7 @@ export default function NewSection({ selectedLawType, setSelectedLawType, onBegi
               className="flex items-center text-gray-600 hover:text-gray-900"
             >
               <ArrowLeft className="h-5 w-5 mr-2" />
-              Back to {selectedLawType.name} Cases
+              Back to Cases
             </button>
           </div>
         </div>

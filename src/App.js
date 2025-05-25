@@ -147,7 +147,12 @@ export default function App() {
     setActiveTab("newsection");
   };
 
-  // Add this function after the other state variables in App.js
+  const handleBeginPracticeSession = (sessionData) => {
+    console.log('Starting practice session:', sessionData);
+    // Here you can add any logic needed when starting a practice session
+    // For example, switching to chat view with the session context
+    setActiveTab('chat');
+  };
 
   // Mock function to fetch document details - in real implementation, call your backend
   const fetchDocumentDetails = async (documentId, sourceId) => {
@@ -236,6 +241,8 @@ export default function App() {
             <NewSection
               selectedLawType={selectedLawType}
               setSelectedLawType={setSelectedLawType}
+              onBeginPracticeSession={handleBeginPracticeSession}
+              setActiveTab={setActiveTab}
             />
           )}
 
