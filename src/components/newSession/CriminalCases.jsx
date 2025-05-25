@@ -66,7 +66,7 @@ export default function CriminalCases({ onCaseSelect }) {
           <div
             key={case_.id}
             onClick={() => onCaseSelect(case_)}
-            className="bg-white rounded-lg border border-gray-200 p-4 hover:border-blue-500 hover:shadow-md transition-all cursor-pointer"
+            className="bg-white rounded-lg border border-gray-200 p-4 hover:border-cyan-500 hover:shadow-md transition-all cursor-pointer"
           >
             <div className="flex justify-between items-start">
               <div className="flex-1">

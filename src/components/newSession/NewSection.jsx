@@ -184,7 +184,7 @@ export default function NewSection({ selectedLawType, setSelectedLawType }) {
       <div className="max-w-3xl mx-auto">
         {/* Header Section */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-blue-600 p-3 shadow-lg shadow-blue-500/20 mb-4">
+          <div className="inline-flex items-center justify-center rounded-full bg-gradient-to-br from-cyan-500 to-cyan-600 p-3 shadow-lg shadow-cyan-500/20 mb-4">
             <Shield className="h-8 w-8 text-white" />
           </div>
           <h1 className="text-3xl font-bold text-gray-900 mb-2">
@@ -204,8 +204,8 @@ export default function NewSection({ selectedLawType, setSelectedLawType }) {
                 onClick={() => handleLawTypeSelect(lawType)}
                 className={`relative cursor-pointer rounded-xl border-2 p-4 transition-all ${
                   selectedLawType?.id === lawType.id
-                    ? 'border-blue-500 bg-blue-50'
-                    : 'border-gray-200 hover:border-blue-300 hover:bg-gray-50'
+                    ? 'border-cyan-500 bg-cyan-50'
+                    : 'border-gray-200 hover:border-cyan-300 hover:bg-gray-50'
                 }`}
               >
                 <div className="flex items-start space-x-4">
@@ -220,7 +220,7 @@ export default function NewSection({ selectedLawType, setSelectedLawType }) {
                   </div>
                   {selectedLawType?.id === lawType.id && (
                     <div className="absolute top-3 right-3">
-                      <div className="h-5 w-5 rounded-full bg-blue-500 flex items-center justify-center">
+                      <div className="h-5 w-5 rounded-full bg-cyan-500 flex items-center justify-center">
                         <ChevronRight className="h-4 w-4 text-white" />
                       </div>
                     </div>
@@ -237,7 +237,7 @@ export default function NewSection({ selectedLawType, setSelectedLawType }) {
               disabled={!selectedLawType || isSubmitting}
               className={`px-6 py-3 rounded-lg font-medium text-white transition-all ${
                 selectedLawType && !isSubmitting
-                  ? 'bg-blue-600 hover:bg-blue-700'
+                  ? 'bg-cyan-600 hover:bg-cyan-700'
                   : 'bg-gray-400 cursor-not-allowed'
               }`}
             >
@@ -258,8 +258,8 @@ export default function NewSection({ selectedLawType, setSelectedLawType }) {
 
         {/* Selected Law Type Display */}
         {selectedLawType && (
-          <div className="mt-8 p-4 bg-blue-50 rounded-lg border border-blue-100">
-            <p className="text-sm text-blue-800">
+          <div className="mt-8 p-4 bg-cyan-50 rounded-lg border border-cyan-100">
+            <p className="text-sm text-cyan-800">
               Selected: <span className="font-semibold">{selectedLawType.name}</span>
             </p>
           </div>
