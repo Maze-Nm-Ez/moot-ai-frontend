@@ -19,7 +19,7 @@ export default function Header({
       case "chat":
         return getCurrentChatTitle();
       case "achivements":
-        return "Achivements";
+        return "Achievements";
       case "case_library":
         return "Case Library";
       case "history":

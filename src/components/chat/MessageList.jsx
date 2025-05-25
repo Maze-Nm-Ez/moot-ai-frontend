@@ -94,7 +94,7 @@ Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deseru
             <div
               className={`relative max-w-[85%] rounded-2xl px-3 py-1.5 shadow-sm ${
                 message.role === "user"
-                  ? "bg-blue-600 text-white"
+                  ? "bg-cyan-600 text-white"
                   : isDarkMode
                   ? "bg-gray-700 text-gray-200"
                   : "bg-gray-100 text-gray-800"
@@ -110,7 +110,7 @@ Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deseru
                   <div
                     className={`p-0.5 rounded-full ${
                       message.role === "user"
-                        ? "bg-blue-500"
+                        ? "bg-cyan-500"
                         : isDarkMode
                         ? "bg-gray-600"
                         : "bg-gray-200"
@@ -119,7 +119,7 @@ Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deseru
                     {message.role === "user" ? (
                       <User className="h-2.5 w-2.5 text-white" />
                     ) : (
-                      <Bot className="h-2.5 w-2.5 text-blue-400" />
+                      <Bot className="h-2.5 w-2.5 text-cyan-400" />
                     )}
                   </div>
                   <div className="ml-1 font-medium text-xs">
@@ -128,7 +128,7 @@ Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deseru
                   <div
                     className={`text-[10px] ml-auto ${
                       message.role === "user"
-                        ? "text-blue-200"
+                        ? "text-cyan-200"
                         : isDarkMode
                         ? "text-gray-400"
                         : "text-gray-500"
@@ -161,7 +161,7 @@ Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deseru
                 <div
                   className={`mt-1.5 p-1.5 rounded-md text-xs ${
                     message.role === "user"
-                      ? "bg-blue-500"
+                      ? "bg-cyan-500"
                       : isDarkMode
                       ? "bg-gray-600"
                       : "bg-gray-200"
@@ -213,7 +213,7 @@ Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deseru
                 <div
                   className={`absolute top-2.5 ${
                     message.role === "user"
-                      ? "right-[-5px] border-l-blue-600"
+                      ? "right-[-5px] border-l-cyan-600"
                       : "left-[-5px] border-r-[7px] " +
                         (isDarkMode ? "border-r-gray-700" : "border-r-gray-100")
                   } border-y-transparent border-y-[3.5px] ${
@@ -240,7 +240,7 @@ Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deseru
                     isDarkMode ? "bg-gray-600" : "bg-gray-200"
                   }`}
                 >
-                  <Bot className="h-2.5 w-2.5 text-blue-400" />
+                  <Bot className="h-2.5 w-2.5 text-cyan-400" />
                 </div>
                 <div
                   className={`ml-1 font-medium text-xs ${
@@ -258,13 +258,13 @@ Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deseru
                 </div>
               </div>
               <div className="flex space-x-1.5 py-0.5">
-                <div className="h-1.5 w-1.5 bg-blue-400 rounded-full animate-bounce"></div>
+                <div className="h-1.5 w-1.5 bg-cyan-400 rounded-full animate-bounce"></div>
                 <div
-                  className="h-1.5 w-1.5 bg-blue-400 rounded-full animate-bounce"
+                  className="h-1.5 w-1.5 bg-cyan-400 rounded-full animate-bounce"
                   style={{ animationDelay: "0.2s" }}
                 ></div>
                 <div
-                  className="h-1.5 w-1.5 bg-blue-400 rounded-full animate-bounce"
+                  className="h-1.5 w-1.5 bg-cyan-400 rounded-full animate-bounce"
                   style={{ animationDelay: "0.4s" }}
                 ></div>
               </div>
@@ -282,7 +282,7 @@ Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deseru
             >
               <Bot
                 className={`h-5 w-5 ${
-                  isDarkMode ? "text-blue-400" : "text-blue-600"
+                  isDarkMode ? "text-cyan-400" : "text-cyan-600"
                 }`}
               />
             </div>

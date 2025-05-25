@@ -147,7 +147,7 @@ export default function Sidebar({
         )}
       </nav>
 
-      <div className="mt-5 px-3">
+      <div className="mt-3 px-3">
         <button
           onClick={() => setActiveTab("case_library")}
           className={`w-full flex items-center p-2 rounded-lg transition-colors ${
@@ -167,7 +167,7 @@ export default function Sidebar({
         </button>
       </div>
 
-      <div className="mt-5 px-3">
+      <div className="my-1 px-3">
         <button
           onClick={() => setActiveTab("achivements")}
           className={`w-full flex items-center p-2 rounded-lg transition-colors ${

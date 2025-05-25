@@ -26,8 +26,8 @@ export default function ChatInput({
             } py-2 px-3 shadow-sm ${
               isFocused
                 ? isDarkMode
-                  ? "ring-1 ring-blue-500 border-gray-600"
-                  : "ring-2 ring-blue-100 border-blue-300"
+                  ? "ring-1 ring-cyan-500 border-gray-600"
+                  : "ring-2 ring-cyan-100 border-cyan-300"
                 : isDarkMode
                 ? "border-gray-600"
                 : "border-gray-300"
@@ -77,7 +77,7 @@ export default function ChatInput({
               disabled={!input.trim() || input.length === 0}
               className={`p-2 rounded-full min-w-[36px] flex items-center justify-center ${
                 input.trim() && input.length > 0
-                  ? "bg-blue-600 hover:bg-blue-700 text-white"
+                  ? "bg-cyan-600 hover:bg-cyan-700 text-white"
                   : isDarkMode
                   ? "bg-gray-600 text-gray-400 cursor-not-allowed"
                   : "bg-gray-200 text-gray-500 cursor-not-allowed"

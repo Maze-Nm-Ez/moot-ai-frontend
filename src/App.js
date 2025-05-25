@@ -6,6 +6,8 @@ import HistoryView from "./components/HistoryView";
 import Footer from "./components/Footer";
 import Sidebar from "./components/Sidebar";
 import NewSection from "./components/newSession/NewSection";
+import CaseLibrary from "./components/caseLibrary/CaseLibrary";
+import Achivements from "./components/achivements/Achivements";
 
 export default function App() {
   const [activeTab, setActiveTab] = useState("chat"); // 'chat', 'upload', 'history'
@@ -206,6 +208,7 @@ export default function App() {
               setMessages={setMessages}
               currentChatId={currentChatId}
               fetchDocumentDetails={fetchDocumentDetails}
+              setActiveTab={setActiveTab}
             />
           )}
 
@@ -232,6 +235,18 @@ export default function App() {
               setSelectedLawType={setSelectedLawType}
             />
           )}
+
+          {activeTab === "case_library" && (
+            <CaseLibrary
+              selectedLawType={selectedLawType}
+              setSelectedLawType={setSelectedLawType}
+            />
+          )}
+
+          {activeTab === "achivements" && (
+            <Achivements />
+          )}
+
         </main>
 
         <Footer />
