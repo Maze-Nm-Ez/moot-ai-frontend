@@ -43,7 +43,10 @@ const LAW_TYPES = [
   },
 ];
 
-export default function NewSection({ selectedLawType, setSelectedLawType, onBeginPracticeSession, setActiveTab }) {
+
+export default function NewSection({ selectedLawType, setSelectedLawType, onBeginPracticeSession }) {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const [showCases, setShowCases] = useState(false);
   const [selectedCase, setSelectedCase] = useState(null);
   const [selectedRole, setSelectedRole] = useState(null);
@@ -198,6 +201,7 @@ export default function NewSection({ selectedLawType, setSelectedLawType, onBegi
           </p>
         </div>
 
+
         {/* Search Bar */}
         <div className="mb-6">
           <div className="relative">
@@ -242,6 +246,40 @@ export default function NewSection({ selectedLawType, setSelectedLawType, onBegi
               <p className="text-gray-600">No law types match your search.</p>
             </div>
           )}
+
+        {/* Law Type Selection Form */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {LAW_TYPES.map((lawType) => (
+            <div
+              key={lawType.id}
+              onClick={() => handleLawTypeSelect(lawType)}
+              className={`relative cursor-pointer rounded-xl border-2 p-4 transition-all ${
+                selectedLawType?.id === lawType.id
+                  ? 'border-blue-500 bg-blue-50'
+                  : 'border-gray-200 hover:border-blue-300 hover:bg-gray-50'
+              }`}
+            >
+              <div className="flex items-start space-x-4">
+                <div className="text-2xl">{lawType.icon}</div>
+                <div className="flex-1">
+                  <h3 className="font-semibold text-gray-900 mb-1">
+                    {lawType.name}
+                  </h3>
+                  <p className="text-sm text-gray-600">
+                    {lawType.description}
+                  </p>
+                </div>
+                {selectedLawType?.id === lawType.id && (
+                  <div className="absolute top-3 right-3">
+                    <div className="h-5 w-5 rounded-full bg-blue-500 flex items-center justify-center">
+                      <ChevronRight className="h-4 w-4 text-white" />
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          ))}
+
         </div>
 
         {/* Selected Law Type Display */}

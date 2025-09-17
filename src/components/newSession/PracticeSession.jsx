@@ -63,6 +63,7 @@ export default function PracticeSession({ selectedCase, selectedRole, selectedPr
       <div className="flex flex-col h-full">
         {/* Case Info Header */}
         <div className="bg-blue-50 border border-blue-200 rounded-xl p-6 mb-6 shadow">
+
           <div>
             <div className="text-2xl font-bold text-blue-900 mb-2">
               {selectedCase.title}
@@ -73,6 +74,27 @@ export default function PracticeSession({ selectedCase, selectedRole, selectedPr
               <div><b>Your Role:</b> {selectedRole.name}</div>
               <div><b>Mode:</b> {selectedPracticeMode.name}</div>
             </div>
+
+          <div className="flex justify-between items-start">
+            <div>
+              <div className="text-2xl font-bold text-blue-900 mb-2">
+                {selectedCase.title}
+              </div>
+              <div className="text-base text-gray-800">
+                <div><b>Case:</b> Attorney General v. Jude Shramantha Jayamaha</div>
+                <div><b>Court:</b> Moot Court (Modeled after Court of Appeal)</div>
+                <div><b>Your Role:</b> {selectedRole.name}</div>
+                <div><b>Mode:</b> {selectedPracticeMode.name}</div>
+              </div>
+            </div>
+            <button
+              onClick={onBack}
+              className="flex items-center text-gray-600 hover:text-gray-900"
+            >
+              <ArrowLeft className="h-5 w-5 mr-2" />
+              Back
+            </button>
+
           </div>
         </div>
 
@@ -161,7 +183,9 @@ export default function PracticeSession({ selectedCase, selectedRole, selectedPr
           <div className="flex justify-center">
             <button
               onClick={() => setStarted(true)}
-              className="px-8 py-3 bg-cyan-600 text-white rounded-lg font-medium hover:bg-cyan-700 transition-colors"
+
+              className="px-8 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors"
+
             >
               Begin Practice Session
             </button>

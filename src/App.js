@@ -5,9 +5,12 @@ import UploadView from "./components/UploadView";
 import HistoryView from "./components/HistoryView";
 import Footer from "./components/Footer";
 import Sidebar from "./components/Sidebar";
+
 import NewSection from "./components/newSession/NewSection";
 import CaseLibrary from "./components/caseLibrary/CaseLibrary";
 import Achivements from "./components/achivements/Achivements";
+
+
 import { mootCourtRoyalParkScript } from "./data/mootCourtRoyalPark";
 
 export default function App() {
@@ -182,6 +185,14 @@ export default function App() {
     });
   };
 
+
+  const startMootCourtSimulation = () => {
+    setMessages(mootCourtRoyalParkScript);
+    setActiveTab("chat");
+  };
+
+  // Pass this function down to ChatView as a prop
+
   return (
     <div className="flex h-screen bg-gray-50 text-gray-900">
       {/* Sidebar */}
@@ -204,7 +215,21 @@ export default function App() {
           chatHistory={chatHistory}
         />
 
-        <main className="flex-grow flex overflow-hidden bg-white">
+
+        <main
+          className={`flex-grow flex overflow-hidden ${
+            isDarkMode ? "bg-gray-900" : "bg-white"
+          }`}
+        >
+          {activeTab === "newsection" && (
+            <NewSection 
+              selectedLawType={selectedLawType}
+              setSelectedLawType={setSelectedLawType}
+              onBeginPracticeSession={startMootCourtSimulation}
+            />
+          )}
+
+
           {activeTab === "chat" && (
             <ChatView
               messages={messages}
@@ -220,7 +245,7 @@ export default function App() {
               uploadedFiles={uploadedFiles}
               uploadProgress={uploadProgress}
               handleFileUpload={handleFileUpload}
-              removeFile={removeFile}
+              removeFile={removeFile
             />
           )}
 
