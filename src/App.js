@@ -1,22 +1,21 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Header from "./components/Header";
 import ChatView from "./components/ChatView";
 import UploadView from "./components/UploadView";
 import HistoryView from "./components/HistoryView";
-import NewSection from "./components/newSession/NewSection";
 import Footer from "./components/Footer";
 import Sidebar from "./components/Sidebar";
+
+import NewSection from "./components/newSession/NewSection";
+import CaseLibrary from "./components/caseLibrary/CaseLibrary";
+import Achivements from "./components/achivements/Achivements";
+
+
 import { mootCourtRoyalParkScript } from "./data/mootCourtRoyalPark";
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState("chat"); // 'chat', 'upload', 'history', 'newsection'
+  const [activeTab, setActiveTab] = useState("chat"); // 'chat', 'upload', 'history'
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(true);
-  const [selectedLawType, setSelectedLawType] = useState(() => {
-    // Initialize from localStorage if available
-    const saved = localStorage.getItem('selectedLawType');
-    return saved ? JSON.parse(saved) : null;
-  });
   const [messages, setMessages] = useState([
     {
       id: 1,
@@ -27,36 +26,29 @@ export default function App() {
   ]);
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [uploadProgress, setUploadProgress] = useState({});
+  const [selectedLawType, setSelectedLawType] = useState(null);
+
   const [chatHistory, setChatHistory] = useState([
     {
       id: "chat-1",
-      title: "NDA Review Discussion",
+      title: "Royal Park Murder Moot",
       date: "2 May 2025",
-      messages: 4,
+      messages: 5,
     },
     {
       id: "chat-2",
-      title: "Contract Interpretation",
+      title: "Constitutional Rights Challenge",
       date: "30 Apr 2025",
-      messages: 7,
+      messages: 8,
     },
     {
       id: "chat-3",
-      title: "Legal Compliance Inquiry",
+      title: "Family Law Custody Dispute",
       date: "28 Apr 2025",
-      messages: 3,
+      messages: 6,
     },
   ]);
   const [currentChatId, setCurrentChatId] = useState("current");
-
-  // Save selectedLawType to localStorage whenever it changes
-  useEffect(() => {
-    if (selectedLawType) {
-      localStorage.setItem('selectedLawType', JSON.stringify(selectedLawType));
-    } else {
-      localStorage.removeItem('selectedLawType');
-    }
-  }, [selectedLawType]);
 
   // Handle file upload
   const handleFileUpload = (files) => {
@@ -155,13 +147,10 @@ export default function App() {
           "Welcome to Legal Intelligence. You can ask questions about your legal documents, and I'll provide answers based on the content you've uploaded.",
       },
     ]);
-    setActiveTab("chat");
+    setActiveTab("newsection");
   };
 
-  // Toggle theme
-  const toggleTheme = () => {
-    setIsDarkMode(!isDarkMode);
-  };
+  // Add this function after the other state variables in App.js
 
   // Mock function to fetch document details - in real implementation, call your backend
   const fetchDocumentDetails = async (documentId, sourceId) => {
@@ -196,6 +185,7 @@ export default function App() {
     });
   };
 
+
   const startMootCourtSimulation = () => {
     setMessages(mootCourtRoyalParkScript);
     setActiveTab("chat");
@@ -204,11 +194,7 @@ export default function App() {
   // Pass this function down to ChatView as a prop
 
   return (
-    <div
-      className={`flex h-screen ${
-        isDarkMode ? "bg-gray-800 text-white" : "bg-gray-50 text-gray-900"
-      }`}
-    >
+    <div className="flex h-screen bg-gray-50 text-gray-900">
       {/* Sidebar */}
       <Sidebar
         activeTab={activeTab}
@@ -225,11 +211,10 @@ export default function App() {
         <Header
           activeTab={activeTab}
           setActiveTab={setActiveTab}
-          isDarkMode={isDarkMode}
-          toggleTheme={toggleTheme}
           currentChatId={currentChatId}
           chatHistory={chatHistory}
         />
+
 
         <main
           className={`flex-grow flex overflow-hidden ${
@@ -244,13 +229,14 @@ export default function App() {
             />
           )}
 
+
           {activeTab === "chat" && (
             <ChatView
               messages={messages}
               setMessages={setMessages}
-              isDarkMode={isDarkMode}
               currentChatId={currentChatId}
               fetchDocumentDetails={fetchDocumentDetails}
+              setActiveTab={setActiveTab}
             />
           )}
 
@@ -259,8 +245,7 @@ export default function App() {
               uploadedFiles={uploadedFiles}
               uploadProgress={uploadProgress}
               handleFileUpload={handleFileUpload}
-              removeFile={removeFile}
-              isDarkMode={isDarkMode}
+              removeFile={removeFile
             />
           )}
 
@@ -269,12 +254,30 @@ export default function App() {
               chatHistory={chatHistory}
               selectChat={selectChat}
               createNewChat={createNewChat}
-              isDarkMode={isDarkMode}
             />
           )}
+
+          {activeTab === "newsection" && (
+            <NewSection
+              selectedLawType={selectedLawType}
+              setSelectedLawType={setSelectedLawType}
+            />
+          )}
+
+          {activeTab === "case_library" && (
+            <CaseLibrary
+              selectedLawType={selectedLawType}
+              setSelectedLawType={setSelectedLawType}
+            />
+          )}
+
+          {activeTab === "achivements" && (
+            <Achivements />
+          )}
+
         </main>
 
-        <Footer isDarkMode={isDarkMode} />
+        <Footer />
       </div>
     </div>
   );

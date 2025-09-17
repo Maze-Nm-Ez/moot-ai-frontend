@@ -54,7 +54,9 @@ export default function CriminalCases({ onCaseSelect }) {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between mb-6">
+
         <h2 className="text-2xl font-bold text-gray-900">Select a Criminal Case</h2>
+
         <div className="flex items-center text-sm text-gray-500">
           <BookOpen className="h-4 w-4 mr-1" />
           <span>Select a case to analyze</span>
@@ -66,7 +68,7 @@ export default function CriminalCases({ onCaseSelect }) {
           <div
             key={case_.id}
             onClick={() => onCaseSelect(case_)}
-            className="bg-white rounded-lg border border-gray-200 p-4 hover:border-blue-500 hover:shadow-md transition-all cursor-pointer"
+            className="bg-white rounded-lg border border-gray-200 p-4 hover:border-cyan-500 hover:shadow-md transition-all cursor-pointer"
           >
             <div className="flex justify-between items-start">
               <div className="flex-1">

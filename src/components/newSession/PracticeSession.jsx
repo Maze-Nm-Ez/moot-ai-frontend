@@ -63,6 +63,18 @@ export default function PracticeSession({ selectedCase, selectedRole, selectedPr
       <div className="flex flex-col h-full">
         {/* Case Info Header */}
         <div className="bg-blue-50 border border-blue-200 rounded-xl p-6 mb-6 shadow">
+
+          <div>
+            <div className="text-2xl font-bold text-blue-900 mb-2">
+              {selectedCase.title}
+            </div>
+            <div className="text-base text-gray-800">
+              <div><b>Case:</b> Attorney General v. Jude Shramantha Jayamaha</div>
+              <div><b>Court:</b> Moot Court (Modeled after Court of Appeal)</div>
+              <div><b>Your Role:</b> {selectedRole.name}</div>
+              <div><b>Mode:</b> {selectedPracticeMode.name}</div>
+            </div>
+
           <div className="flex justify-between items-start">
             <div>
               <div className="text-2xl font-bold text-blue-900 mb-2">
@@ -82,6 +94,7 @@ export default function PracticeSession({ selectedCase, selectedRole, selectedPr
               <ArrowLeft className="h-5 w-5 mr-2" />
               Back
             </button>
+
           </div>
         </div>
 
@@ -99,33 +112,26 @@ export default function PracticeSession({ selectedCase, selectedRole, selectedPr
   return (
     <div className="space-y-8">
       {/* Header with back button */}
-      <div className="flex items-center justify-between">
-        <button
-          onClick={onBack}
-          className="flex items-center text-gray-600 hover:text-gray-900"
-        >
-          <ArrowLeft className="h-5 w-5 mr-2" />
-          Back to Role Selection
-        </button>
+      <div className="flex items-center justify-end">
         <div className="text-sm text-gray-500">
           <span className="font-medium text-gray-900">{selectedCase.title}</span>
         </div>
       </div>
 
       {/* Session Info */}
-      <div className="bg-blue-50 rounded-lg p-6 border border-blue-100">
+      <div className="bg-cyan-50 rounded-lg p-6 border border-cyan-100">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div>
-            <h3 className="text-sm font-medium text-blue-800 mb-1">Case</h3>
-            <p className="text-blue-900">{selectedCase.title}</p>
+            <h3 className="text-sm font-medium text-cyan-800 mb-1">Case</h3>
+            <p className="text-cyan-900">{selectedCase.title}</p>
           </div>
           <div>
-            <h3 className="text-sm font-medium text-blue-800 mb-1">Your Role</h3>
-            <p className="text-blue-900">{selectedRole.name}</p>
+            <h3 className="text-sm font-medium text-cyan-800 mb-1">Your Role</h3>
+            <p className="text-cyan-900">{selectedRole.name}</p>
           </div>
           <div>
-            <h3 className="text-sm font-medium text-blue-800 mb-1">Practice Mode</h3>
-            <p className="text-blue-900">{selectedPracticeMode.name}</p>
+            <h3 className="text-sm font-medium text-cyan-800 mb-1">Practice Mode</h3>
+            <p className="text-cyan-900">{selectedPracticeMode.name}</p>
           </div>
         </div>
       </div>
@@ -145,10 +151,10 @@ export default function PracticeSession({ selectedCase, selectedRole, selectedPr
               href={resource.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="block bg-white rounded-lg border border-gray-200 p-4 hover:border-blue-500 hover:shadow-md transition-all"
+              className="block bg-white rounded-lg border border-gray-200 p-4 hover:border-cyan-500 hover:shadow-md transition-all"
             >
               <div className="flex items-start space-x-4">
-                <div className="rounded-full bg-blue-100 p-3 text-blue-600">
+                <div className="rounded-full bg-cyan-100 p-3 text-cyan-600">
                   {resource.icon}
                 </div>
                 <div className="flex-1">
@@ -177,7 +183,9 @@ export default function PracticeSession({ selectedCase, selectedRole, selectedPr
           <div className="flex justify-center">
             <button
               onClick={() => setStarted(true)}
+
               className="px-8 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors"
+
             >
               Begin Practice Session
             </button>

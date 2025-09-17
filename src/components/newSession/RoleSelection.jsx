@@ -14,7 +14,7 @@ const ROLES = [
     name: 'Defense',
     description: 'Protect the rights of the accused and challenge the prosecution\'s case.',
     icon: <Scale className="h-6 w-6" />,
-    color: 'from-blue-500 to-blue-600'
+    color: 'from-cyan-500 to-cyan-600'
   }
 ];
 
@@ -50,14 +50,7 @@ export default function RoleSelection({ selectedCase, onRoleSelect, onPracticeMo
   return (
     <div className="space-y-8">
       {/* Back button and case info */}
-      <div className="flex items-center justify-between">
-        <button
-          onClick={onBack}
-          className="flex items-center text-gray-600 hover:text-gray-900"
-        >
-          <ArrowLeft className="h-5 w-5 mr-2" />
-          Back to Cases
-        </button>
+      <div className="flex items-center justify-end">
         <div className="text-sm text-gray-500">
           Selected Case: <span className="font-medium text-gray-900">{selectedCase.title}</span>
         </div>
@@ -75,7 +68,7 @@ export default function RoleSelection({ selectedCase, onRoleSelect, onPracticeMo
             <div
               key={role.id}
               onClick={() => setLocalRole(role)}
-              className={`relative cursor-pointer rounded-xl border-2 p-6 transition-all hover:border-blue-300 hover:bg-gray-50 ${localRole?.id === role.id ? 'border-blue-500 bg-blue-50' : 'border-gray-200'}`}
+              className={`relative cursor-pointer rounded-xl border-2 p-6 transition-all hover:border-cyan-300 hover:bg-gray-50 ${localRole?.id === role.id ? 'border-cyan-500 bg-cyan-50' : 'border-gray-200'}`}
             >
               <div className="flex items-start space-x-4">
                 <div className={`rounded-full bg-gradient-to-br ${role.color} p-3 text-white`}>
@@ -103,7 +96,7 @@ export default function RoleSelection({ selectedCase, onRoleSelect, onPracticeMo
             <div
               key={mode.id}
               onClick={() => setLocalMode(mode)}
-              className={`relative cursor-pointer rounded-xl border-2 p-6 transition-all hover:border-blue-300 hover:bg-gray-50 ${localMode?.id === mode.id ? 'border-blue-500 bg-blue-50' : 'border-gray-200'}`}
+              className={`relative cursor-pointer rounded-xl border-2 p-6 transition-all hover:border-cyan-300 hover:bg-gray-50 ${localMode?.id === mode.id ? 'border-cyan-500 bg-cyan-50' : 'border-gray-200'}`}
             >
               <div className="flex items-start space-x-4">
                 <div className={`rounded-full bg-gradient-to-br ${mode.color} p-3 text-white`}>

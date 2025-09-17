@@ -10,7 +10,7 @@ export default function Footer({ isDarkMode }) {
       } border-t`}
     >
       <div className="flex justify-between items-center">
-        <div>Legal Intelligence &copy; 2025</div>
+        <div>Moot AI &copy; 2025</div>
         <div className="flex items-center">
           <AlertTriangle className="h-4 w-4 mr-1 text-amber-500" />
           <span>For informational purposes only. Not legal advice.</span>
